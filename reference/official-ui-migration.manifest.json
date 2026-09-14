@@ -1,0 +1,126 @@
+{
+  "schema": "chatgpt-ui-migration-manifest/v2",
+  "source": {
+    "origin": "https://chatgpt.com",
+    "path": "/c/6a81c9fb-8a74-83ec-a5a7-baee2f436e11",
+    "capture_method": "Microsoft Edge DevTools console: DOM inspection and getComputedStyle",
+    "captured_at": "2026-09-02T04:43:47.225Z",
+    "scope": "Conversation shell, text-message, user bubble, action group, unified composer, disclaimer and selected controls"
+  },
+  "root": {
+    "font_family": "-apple-system-body, ui-sans-serif, -apple-system, system-ui, Segoe UI, Helvetica, Apple Color Emoji, Arial, sans-serif, Segoe UI Emoji, Segoe UI Symbol",
+    "font_size": "16px",
+    "font_weight": "400",
+    "line_height": "24px",
+    "letter_spacing": "normal"
+  },
+  "light": {
+    "main_surface_primary": "#fcfcfc",
+    "component_sidebar_bg": "#fcfcfc",
+    "composer_surface_primary": "#fff",
+    "text_primary": "#0d0d0d",
+    "text_secondary": "#5d5d5d",
+    "text_tertiary": "#8f8f8f",
+    "blue_user_message_background": "#e8f3fe",
+    "blue_user_message_text": "#0c274a",
+    "composer_shadow": "0 0 0 1px rgb(0 0 0 / 4%), 0 2px 8px rgb(0 0 0 / 4%), 0 4px 80px 8px rgb(0 0 0 / 2.4%)"
+  },
+  "dark": {
+    "main_surface_primary": "#000",
+    "component_sidebar_bg": "#000",
+    "composer_surface_primary": "#212121",
+    "text_primary": "#fff",
+    "text_secondary": "#cdcdcd",
+    "text_tertiary": "#afafaf",
+    "blue_user_message_background": "#173e76",
+    "blue_user_message_text": "#f6fafe"
+  },
+  "component_contracts": {
+    "text_message": {
+      "official_classes": ["min-h-8", "text-message", "relative", "flex", "w-full", "flex-col", "items-end", "gap-2", "text-start", "break-words", "whitespace-normal"],
+      "computed": {"min_height": "32px", "gap": "8px", "font_size": "16px", "font_weight": "400", "line_height": "24px"}
+    },
+    "user_message_bubble": {
+      "official_classes": ["corner-superellipse/0.98", "relative", "min-w-0", "overflow-hidden", "rounded-[22px]", "px-4", "py-2.5", "leading-6", "user-message-bubble-color", "max-w-(--user-chat-width,70%)"],
+      "computed": {"padding": "10px 16px", "border_radius": "22px", "max_width": "70%", "font_size": "16px", "line_height": "24px"}
+    },
+    "message_content": {
+      "official_classes": ["flex", "w-full", "flex-col", "gap-1", "empty:hidden"],
+      "computed": {"display": "flex", "width": "100%", "flex_direction": "column", "gap": "4px", "assistant_markdown_line_height": "26px", "assistant_paragraph_margin": "16px 0"}
+    },
+    "assistant_action_group": {
+      "official_classes": ["-ms-2.5", "-me-1", "flex", "flex-wrap", "items-center", "gap-y-4", "p-1", "-mt-1", "w-[calc(100%+--spacing(2.5))]", "pointer-events-none", "[mask-image:linear-gradient(to_right,black_33%,transparent_66%)]", "[mask-size:300%_100%]", "[mask-position:100%_0%]", "motion-safe:transition-[mask-position]"],
+      "computed": {"gap": "16px 0", "padding": "4px", "margin": "-4px -4px 0 -10px", "width": "calc(100% + 10px)", "transition": "mask-position 1.5s cubic-bezier(0.4, 0, 0.2, 1)"}
+    },
+    "sidebar_menu_item": {
+      "official_classes": ["group", "__menu-item", "border-b", "border-transparent", "bg-clip-padding", "hoverable", "gap-1.5", "transition-colors", "keyboard-focused:focus-ring"],
+      "computed": {"width": "248px at a 260px sidebar", "max_width": "calc(100% - 12px)", "height": "36px", "padding": "6px 10px", "margin": "0 6px", "gap": "6px", "border_radius": "10px", "font_size": "14px", "line_height": "20px"}
+    },
+    "expanded_sidebar_geometry": {
+      "capture_state": "expanded on desktop",
+      "outer_width": "260px",
+      "outer_border": "none",
+      "brand_control_row": {"y": "8px", "height": "36px"},
+      "new_chat": {"y": "60px", "height": "36px"},
+      "product_navigation": {"first_y": "96px", "row_step": "36px", "last_y": "276px"},
+      "recent_section": {"heading_y": "324px", "heading_height": "32px", "first_history_item_y": "356px"},
+      "history_options": {"box": "34px x 36px", "icon": "20px", "radius": "0 10px 10px 0"},
+      "state_rules": {"collapsed": "replace the 260px panel with a 52px rail", "expanded": "render the 260px panel without a visual divider", "hover": "menu background uses the official secondary-hover token"}
+    },
+    "sidebar_vertical_contract": {
+      "collapsed_rail": {"open_sidebar": {"x": "8px", "y": "8px", "box": "36px", "icon": "20px"}, "new_chat": {"x": "8px", "y": "60px", "box": "36px"}, "search": {"x": "6px", "y": "96px", "box": "40px x 36px"}, "recent_chats": {"x": "6px", "y": "132px", "box": "40px x 36px"}},
+      "expanded_header": {"home": {"x": "8px", "y": "8px", "width": "95.2266px", "height": "36px", "padding_x": "10px"}, "search": {"x": "180px", "y": "8px", "box": "36px"}, "close": {"x": "216px", "y": "8px", "box": "36px"}},
+      "expanded_recent_heading": {"label_x": "16px", "height": "32px", "organize": {"x": "220px", "y": "322px", "box": "34px x 36px"}}
+    },
+    "collapsed_rail_interaction": {
+      "open_sidebar": {"default_icon": "blossom", "hover_icon": "sidebar", "trigger": "hover or keyboard focus", "tooltip": "打开侧边栏"},
+      "new_chat": {"tooltip": "新聊天"},
+      "search": {"tooltip": "搜索"},
+      "recent_chats": {"tooltip": "最近聊天"},
+      "animation": {"icon_opacity": "1ms with 150ms hover delay", "tooltip": "opacity and translate, 150ms standard easing", "surface": "official secondary-hover token"}
+    },
+    "composer_surface": {
+      "official_classes": ["bg-(--composer-surface-primary)", "grid", "cursor-text", "overflow-clip", "group-not-data-expanded/composer:min-h-[52px]", "corner-superellipse/1.1", "shadow-short-composer"],
+      "computed": {"min_height": "52px", "border_radius": "28px", "font_size": "16px", "line_height": "24px"}
+    },
+    "composer_plus": {
+      "official_classes": ["composer-btn"],
+      "computed": {"width": "36px", "height": "36px", "font_size": "14px", "line_height": "20px"}
+    },
+    "share": {
+      "official_classes": ["btn", "btn-ghost", "text-token-text-primary", "hover:bg-token-surface-hover", "rounded-lg"],
+      "computed": {"width": "78px", "height": "36px", "padding": "0px 12px", "border_radius": "8px", "font_size": "14px", "font_weight": "500", "line_height": "20px"}
+    },
+    "collapsed_sidebar_rail": {
+      "official_id": "stage-sidebar-tiny-bar",
+      "official_classes": ["absolute", "inset-0", "w-(--sidebar-rail-width)", "h-full", "flex", "flex-col", "items-start", "pb-1.5"],
+      "computed": {"width": "52px", "padding_bottom": "6px", "position": "absolute", "button_width": "36px", "button_height": "36px", "button_margin": "0 8px", "icon_size": "24px"}
+    },
+    "sidebar_controls": {
+      "search": {"official_sprite": "sprites-shell-097001e7.svg#sidebar-search", "button": "36px", "icon": "20px", "color_light": "rgb(143, 143, 143)"},
+      "close_sidebar": {"official_sprite": "sprites-shell-097001e7.svg#sidebar", "button": "36px", "icon": "20px", "color_light": "rgb(143, 143, 143)"},
+      "history_options": {"official_sprite": "sprites-shell-097001e7.svg#dots-horizontal", "button": "34px x 36px", "icon": "20px", "margin": "-8px -10px -8px -4px"}
+    },
+    "thread": {
+      "official_tokens": {"max_width_small": "40rem", "max_width_large": "48rem", "margin_xs": "16px", "margin_sm": "24px", "margin_lg": "64px", "component_gap": "24px"}
+    },
+    "date_separator": {
+      "format": "M月D日周X",
+      "font_size": "14px",
+      "font_weight": "400",
+      "line_height": "20px",
+      "color": "var(--text-tertiary)"
+    },
+    "scroll_to_latest": {
+      "official_behavior": "appears after scrolling away from latest messages",
+      "computed": {"button_box": "32px", "visual_box": "34px", "position": "absolute centered above composer", "bottom": "12px", "z_index": "10", "border_radius": "9999999px", "backdrop_filter": "blur(2px)"},
+      "icon": "inline path from scroll-to-bottom control"
+    }
+  },
+  "implementation_policy": {
+    "ui_reference": "Only the official ChatGPT web page captured in Edge DevTools is a visual/source reference.",
+    "data_reference": "User-provided ChatGPT exports are parsed only as local conversation data and are not used to infer UI.",
+    "organization": "Official utility-class structures are normalized into semantic CSS modules and DOM components while preserving traceable source contracts above.",
+    "sprite_assets": ["reference/sprites-shell-097001e7.svg", "reference/sprites-core-26c3f2d4.svg"]
+  }
+}

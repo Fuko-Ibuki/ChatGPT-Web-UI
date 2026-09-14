@@ -1,0 +1,9 @@
+/*
+ * Entry stylesheet for the V2 source migration.
+ * Each imported file maps to a stable ChatGPT web UI component domain.
+ */
+@import url("./src/styles/tokens.css");
+@import url("./src/styles/shell.css");
+@import url("./src/styles/conversation.css");
+@import url("./src/styles/composer.css");
+@import url("./src/styles/overlays.css");

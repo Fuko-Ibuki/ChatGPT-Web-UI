@@ -1,0 +1,190 @@
+/*
+ * Directly migrated from the Edge DevTools snapshot of chatgpt.com.
+ * Capture: 2026-09-02, /c/6a81c9fb-8a74-83ec-a5a7-baee2f436e11.
+ * See reference/official-ui-migration.manifest.json for provenance.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  --cgpt-font-sans: -apple-system-body, ui-sans-serif, -apple-system, "system-ui", "Segoe UI", Helvetica, "Apple Color Emoji", Arial, "sans-serif", "Segoe UI Emoji", "Segoe UI Symbol";
+  --cgpt-font-mono: ui-monospace, "SFMono-Regular", "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --cgpt-font-size-body: 16px;
+  --cgpt-line-height-body: 24px;
+  --cgpt-font-size-label: 14px;
+  --cgpt-line-height-label: 20px;
+  --cgpt-font-size-caption: 12px;
+  --cgpt-line-height-caption: 16px;
+  --cgpt-font-weight-normal: 400;
+  --cgpt-font-weight-medium: 500;
+  --cgpt-font-weight-semibold: 600;
+
+  --cgpt-gray-0: #fff;
+  --cgpt-gray-25: #fcfcfc;
+  --cgpt-gray-50: #f9f9f9;
+  --cgpt-gray-75: #f2f2f2;
+  --cgpt-gray-100: #ececec;
+  --cgpt-gray-150: #e8e8e8;
+  --cgpt-gray-200: #e3e3e3;
+  --cgpt-gray-300: #cdcdcd;
+  --cgpt-gray-500: #9b9b9b;
+  --cgpt-gray-600: #676767;
+  --cgpt-gray-650: #545454;
+  --cgpt-gray-700: #424242;
+  --cgpt-gray-750: #2f2f2f;
+  --cgpt-gray-800: #212121;
+  --cgpt-gray-850: #1c1c1c;
+  --cgpt-gray-900: #171717;
+  --cgpt-gray-950: #0d0d0d;
+
+  --cgpt-blue-25: #f6fafe;
+  --cgpt-blue-50: #e8f3fe;
+  --cgpt-blue-400: #3a83f7;
+  --cgpt-blue-700: #173e76;
+  --cgpt-blue-900: #0c274a;
+
+  --cgpt-main-surface: #fcfcfc;
+  --cgpt-sidebar-surface: #fcfcfc;
+  --cgpt-composer-surface: #fff;
+  --cgpt-surface-tertiary: #f7f7f7;
+  --cgpt-elevated-surface: #fff;
+  --cgpt-tooltip-surface: #2f2f2f;
+  --cgpt-tooltip-text: #fff;
+  --cgpt-tooltip-text-secondary: #e5e5e5;
+  --cgpt-tooltip-text-tertiary: #bdbdbd;
+  --cgpt-tooltip-border: transparent;
+  --cgpt-surface-hover: #0000000d;
+  --cgpt-surface-press: #0000000d;
+  --cgpt-text-primary: #0d0d0d;
+  --cgpt-text-secondary: #5d5d5d;
+  --cgpt-text-tertiary: #8f8f8f;
+  --cgpt-sidebar-icon: #7d7d7d;
+  --cgpt-border-light: #0000000d;
+  --cgpt-border-default: #0000001a;
+  --cgpt-focus: #0d0d0d;
+  --cgpt-user-surface: #e8f3fe;
+  --cgpt-user-text: #0c274a;
+  --cgpt-submit-surface: #3a83f7;
+  --cgpt-submit-text: #fff;
+  --cgpt-composer-active-surface: #eef6ff;
+  --cgpt-composer-active-text: #3b82f6;
+  --cgpt-composer-active-hover-surface: #dcecff;
+
+  --cgpt-shadow-composer: 0 0 0 1px rgb(0 0 0 / 4%), 0 2px 8px rgb(0 0 0 / 4%), 0 4px 80px 8px rgb(0 0 0 / 2.4%);
+  --cgpt-shadow-menu: 0 12px 32px rgb(0 0 0 / 14%);
+  --cgpt-ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --cgpt-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+  --cgpt-transition-duration: 150ms;
+
+  --cgpt-header-height: 52px;
+  --cgpt-sidebar-width: 260px;
+  --cgpt-thread-max-width: 40rem;
+  --cgpt-thread-margin: 16px;
+  --cgpt-composer-radius: 28px;
+  --cgpt-user-radius: 22px;
+  --cgpt-thread-gap: 24px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --cgpt-thread-margin: 24px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --cgpt-thread-max-width: 48rem;
+    --cgpt-thread-margin: 64px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Values sampled from the same official page after its dark class was active. */
+    --cgpt-main-surface: #000;
+    --cgpt-sidebar-surface: #000;
+    --cgpt-composer-surface: #212121;
+    --cgpt-surface-tertiary: #2f2f2f;
+    --cgpt-elevated-surface: #2f2f2f;
+    /* Tooltip remains a dark elevated surface in dark mode. */
+    --cgpt-tooltip-surface: #2f2f2f;
+    --cgpt-tooltip-text: #fff;
+    --cgpt-tooltip-text-secondary: #e5e5e5;
+    --cgpt-tooltip-text-tertiary: #bdbdbd;
+    --cgpt-tooltip-border: #ffffff1a;
+    --cgpt-surface-hover: #ffffff14;
+    --cgpt-surface-press: #ffffff1a;
+    --cgpt-text-primary: #fff;
+    --cgpt-text-secondary: #cdcdcd;
+    --cgpt-text-tertiary: #afafaf;
+    --cgpt-sidebar-icon: #afafaf;
+    --cgpt-border-light: #ffffff0d;
+    --cgpt-border-default: #ffffff26;
+    --cgpt-focus: #fff;
+    --cgpt-user-surface: #173e76;
+    --cgpt-user-text: #f6fafe;
+    --cgpt-submit-surface: #2c67c5;
+    --cgpt-submit-text: #fff;
+    --cgpt-composer-active-surface: #1f3b5f;
+    --cgpt-composer-active-text: #63a8f8;
+    --cgpt-composer-active-hover-surface: #294d76;
+    --cgpt-shadow-composer: none;
+    --cgpt-shadow-menu: 0 12px 32px rgb(0 0 0 / 42%);
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+html {
+  background: var(--cgpt-main-surface);
+  color: var(--cgpt-text-primary);
+  font-family: var(--cgpt-font-sans);
+  font-size: var(--cgpt-font-size-body);
+  font-weight: var(--cgpt-font-weight-normal);
+  letter-spacing: normal;
+  line-height: var(--cgpt-line-height-body);
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+  background: var(--cgpt-main-surface);
+}
+
+button,
+textarea,
+input {
+  color: inherit;
+  font: inherit;
+}
+
+button {
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+button:focus-visible,
+input:focus-visible {
+  outline: 1.5px solid var(--cgpt-focus);
+  outline-offset: 2.5px;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+[hidden] {
+  display: none !important;
+}

@@ -1,0 +1,595 @@
+/* Official unified-composer values, normalized into semantic V2 classes. */
+
+.cgpt-thread-footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 5;
+  flex: none;
+  padding: 0 var(--cgpt-thread-margin) 26px;
+  background: transparent !important;
+}
+
+/* Page-level fade belongs to the footer layer, below the composer surface.
+   It is deliberately separate from the input's scroll-fade mask. */
+.cgpt-thread-footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    color-mix(in srgb, var(--cgpt-main-surface) 72%, transparent) 42%,
+    var(--cgpt-main-surface) 100%
+  );
+}
+
+
+
+.cgpt-composer-parent,
+.composer-parent,
+.cgpt-composer-container,
+.cgpt-composer {
+  background: transparent !important;
+}
+
+.cgpt-composer-container {
+  position: relative;
+  z-index: 1;
+  width: min(100%, var(--cgpt-thread-max-width));
+  margin: 0 auto;
+}
+
+.cgpt-composer {
+  --composer-footer-height: 32px;
+  --composer-bar-height: 52px;
+  --composer-bar-width: 768px;
+  --composer-bar-safe-margins: 20px;
+  /* Keep the mode toggle geometry in the same coordinate system as the
+     source unified-composer (h-9 / end-2.5 / top-2.5). */
+  --cgpt-composer-control-size: 36px;
+  --cgpt-composer-control-inset: 10px;
+  width: 100%;
+  margin: 0;
+}
+
+.cgpt-composer-surface {
+  display: grid;
+  position: relative;
+  transition: color 200ms var(--cgpt-ease-standard), background-color 200ms var(--cgpt-ease-standard), border-color 200ms var(--cgpt-ease-standard), box-shadow 200ms var(--cgpt-ease-standard);
+  min-height: 52px;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "body";
+  align-items: center;
+  /* Tooltips must escape the rounded composer surface; the surface itself
+     does not need clipping because its background and shadow are self-contained. */
+  overflow: visible;
+  background: var(--cgpt-composer-surface);
+  border-radius: var(--cgpt-composer-radius);
+  box-shadow: var(--cgpt-shadow-composer);
+  /* Desktop controls are 36px tall inside a 52px surface: equal 8px
+     clearance on every side. */
+  padding: 8px;
+}
+
+@supports (corner-shape: superellipse(1)) {
+  .cgpt-composer-surface {
+    corner-shape: superellipse(1.1);
+  }
+}
+
+@media (max-width: 600px) {
+  /* Narrow phones start with a two-line editor. */
+  .cgpt-composer-input { min-height: 48px; }
+}
+
+.cgpt-composer-body > .cgpt-composer-button:first-child {
+  grid-area: leading;
+}
+.cgpt-composer-body {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-areas: "leading primary trailing";
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-items: center;
+  flex: 1;
+  padding: 0;
+  grid-column: 1 / -1;
+}
+.cgpt-composer-body > .cgpt-composer-input { grid-area: primary; }
+.cgpt-composer-body > .cgpt-composer-trailing { grid-area: trailing; }
+.cgpt-composer-body > .cgpt-composer-footer-actions { grid-area: footer; }
+.cgpt-composer-surface[data-expanded] .cgpt-composer-body {
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-areas: "header header header" "primary primary primary" "leading footer trailing";
+  align-items: stretch;
+  padding-block: 9px;
+}
+.cgpt-composer-footer-actions { display: none; grid-area: footer; }
+.cgpt-composer-footer-actions[data-dismissed] { display: none !important; }
+.cgpt-composer-footer-actions[data-active] { display: none; }
+.cgpt-composer-pill { position: relative; display:inline-flex; align-items:center; gap:6px; min-height:32px; border-radius:9999px; background:var(--cgpt-composer-active-surface); color:var(--cgpt-composer-active-text); padding:0 10px; font-size:14px; }
+.cgpt-composer-pill:hover,
+.cgpt-composer-pill:focus-visible { background: var(--cgpt-composer-active-hover-surface); }
+.cgpt-composer-pill:active { background: var(--cgpt-composer-active-surface); }
+.cgpt-composer-pill-icon[data-icon] { width:24px; height:24px; }
+.cgpt-composer-pill-icon { display: inline-flex; width: 24px; height: 24px; align-items: center; justify-content: center; flex: 0 0 24px; }
+.cgpt-composer-pill-remove { position: absolute; inset-inline-start: 14px; top: 50%; display: inline-flex; width: 16px; height: 16px; align-items: center; justify-content: center; transform: translateY(-50%); opacity:0; }
+.cgpt-composer-pill-remove svg { width: 16px; height: 16px; }
+.cgpt-composer-pill:hover .cgpt-composer-pill-remove,
+.cgpt-composer-pill:focus-visible .cgpt-composer-pill-remove { opacity:.9; }
+.cgpt-composer-pill:hover .cgpt-composer-pill-icon,
+.cgpt-composer-pill:focus-visible .cgpt-composer-pill-icon { visibility:hidden; }
+
+.cgpt-composer-expand {
+  position: absolute;
+  z-index: 2;
+  top: var(--cgpt-composer-control-inset);
+  inset-inline-end: var(--cgpt-composer-control-inset);
+  display: inline-flex;
+  width: var(--cgpt-composer-control-size);
+  min-width: var(--cgpt-composer-control-size);
+  height: var(--cgpt-composer-control-size);
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: var(--cgpt-composer-radius);
+  color: var(--cgpt-text-secondary);
+  padding: 0;
+  background: transparent;
+}
+
+.cgpt-composer-controls-anchor {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.cgpt-composer-controls-anchor .cgpt-composer-expand {
+  pointer-events: auto;
+}
+
+.cgpt-composer-surface:not([data-can-expand]):not([data-manual-expanded]) .cgpt-composer-expand {
+  display: none;
+}
+
+.cgpt-composer-expand:hover,
+.cgpt-composer-expand:focus-visible { background: var(--cgpt-surface-hover); }
+.cgpt-composer-expand::after {
+  content: attr(aria-label);
+  position: absolute;
+  left: 50%;
+  top: calc(100% + 6px);
+  z-index: 5;
+  max-width: 320px;
+  border: 1px solid var(--cgpt-tooltip-border);
+  border-radius: 9999px;
+  background: var(--cgpt-tooltip-surface);
+  padding: 5px 12px;
+  box-shadow: 0 8px 18px rgb(15 23 42 / 20%);
+  color: var(--cgpt-tooltip-text);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.15px;
+  line-height: 18px;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%) translateY(-3px);
+  transition: opacity 150ms var(--cgpt-ease-standard) 150ms, transform 150ms var(--cgpt-ease-standard) 150ms;
+  white-space: nowrap;
+}
+.cgpt-composer-expand:hover::after,
+.cgpt-composer-expand:focus-visible::after { opacity: 1; transform: translateX(-50%) translateY(0); }
+.cgpt-composer-expand > span,
+.cgpt-composer-expand svg { width: 20px; height: 20px; }
+
+.cgpt-composer-input {
+  grid-area: primary;
+}
+#prompt[data-link-selection-active]::selection,
+.cgpt-edit-textarea[data-link-selection-active]::selection {
+  background: #b9d7f7;
+  color: var(--cgpt-text-primary) !important;
+}
+
+.cgpt-composer-surface[data-expanded] { min-height: 66px; }
+
+.cgpt-composer-surface[data-can-expand] .cgpt-composer-input {
+  max-height: min(13rem, max(30svh, 5rem));
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cgpt-gray-300) transparent;
+  scroll-padding-block: 16px;
+  background: transparent;
+}
+
+.cgpt-composer-surface[data-can-expand] .cgpt-composer-input {
+  /* Source uses `group-data-[expanded-composer-mode-button]/composer:pe-9`
+     on the editor itself. The primary wrapper remains `pe-0`; do not add the
+     control's outer insets a second time or the textarea becomes too narrow. */
+  padding-inline-end: var(--cgpt-composer-control-size);
+}
+
+.cgpt-composer-surface[data-manual-expanded] {
+  block-size: min(48rem, calc(100svh - var(--cgpt-header-height) - 8rem));
+  max-block-size: calc(100svh - var(--cgpt-header-height) - 8rem);
+  min-block-size: 0;
+  align-items: stretch;
+  grid-template-rows: minmax(0, 1fr);
+}
+
+.cgpt-composer-surface[data-manual-expanded] .cgpt-composer-input {
+  height: auto !important;
+  max-height: min(13rem, max(30svh, 5rem));
+  min-height: 0;
+  align-self: stretch;
+  overflow-y: auto;
+  scroll-padding-block: 16px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--cgpt-gray-300) transparent;
+}
+.cgpt-composer-surface[data-expanded][data-manual-expanded] .cgpt-composer-input {
+  max-height: none !important;
+}
+
+.cgpt-composer-surface[data-expanded] > .cgpt-composer-trailing {
+  grid-area: trailing;
+}
+
+.cgpt-composer-input {
+  display: block;
+  appearance: none;
+  inline-size: 100%;
+  max-inline-size: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  min-height: 24px;
+  border: 0;
+  box-shadow: none;
+  outline: 0;
+  background: transparent;
+  padding: 0 8px;
+  color: var(--cgpt-text-primary);
+  font-family: var(--cgpt-font-sans);
+  font-size: 16px;
+  font-weight: var(--cgpt-font-weight-normal);
+  letter-spacing: normal;
+  line-height: var(--cgpt-line-height-body);
+  resize: none;
+  overflow-y: hidden;
+  transition: none;
+}
+
+/* Source equivalent of vertical-scroll-fade-mask. The fade belongs to the
+   scrollable editor itself, so the controls remain completely unmasked. */
+.cgpt-composer-surface[data-input-scrollable] .cgpt-composer-input {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 100%);
+}
+.cgpt-composer-surface[data-input-scrollable][data-input-scrolled] .cgpt-composer-input {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 100%);
+}
+.cgpt-composer-surface[data-input-scrollable][data-input-scroll-bottom] .cgpt-composer-input {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 18px), transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0, #000 calc(100% - 18px), transparent 100%);
+}
+.cgpt-composer-surface[data-input-scrollable][data-input-scrolled][data-input-scroll-bottom] .cgpt-composer-input {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+
+.cgpt-composer-input:focus,
+.cgpt-composer-input:focus-visible {
+  border: 0 !important;
+  outline: 0 !important;
+  box-shadow: none !important;
+}
+.cgpt-composer-input[data-link-selection-active]::selection {
+  background: #b9d7f7;
+  color: var(--cgpt-text-primary) !important;
+}
+
+.cgpt-composer-surface[data-expanded] {
+  min-height: 66px;
+}
+.cgpt-composer-surface[data-expanded] .cgpt-composer-input {
+  align-self: stretch;
+  min-height: 0;
+  max-height: 237px;
+  overflow-y: auto;
+}
+
+.cgpt-composer-surface[data-expanded] .cgpt-composer-trailing {
+  align-self: center;
+}
+
+.cgpt-composer-input::placeholder {
+  color: var(--cgpt-text-tertiary);
+  opacity: 1;
+}
+
+.cgpt-composer-trailing {
+  display: flex;
+  grid-area: trailing;
+  align-items: center;
+  gap: 4px;
+}
+
+.cgpt-thinking-button {
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  gap: 6px;
+  border-radius: 9999px;
+  padding: 0 12px;
+  color: var(--cgpt-text-primary);
+  font-size: var(--cgpt-font-size-label);
+  font-weight: var(--cgpt-font-weight-normal);
+  line-height: var(--cgpt-line-height-label);
+  transition: background-color var(--cgpt-transition-duration) var(--cgpt-ease-standard);
+}
+
+.cgpt-thinking-button > span:first-child {
+  width: 18px;
+  height: 18px;
+}
+
+.cgpt-thinking-button:hover,
+.cgpt-thinking-button:active {
+  background: var(--cgpt-surface-hover);
+}
+.cgpt-thinking-button[aria-pressed="true"],
+.cgpt-composer-button[aria-pressed="true"] {
+  background: var(--cgpt-composer-active-surface);
+  color: var(--cgpt-composer-active-text);
+}
+.cgpt-thinking-button[aria-pressed="true"]:hover,
+.cgpt-thinking-button[aria-pressed="true"]:focus-visible {
+  background: var(--cgpt-composer-active-hover-surface);
+  color: var(--cgpt-composer-active-text);
+}
+.cgpt-thinking-button[aria-pressed="true"]:active {
+  background: var(--cgpt-composer-active-surface);
+}
+.cgpt-composer-button[data-action="voice"] {
+  border-radius: 9999px;
+  background: var(--cgpt-submit-surface);
+  color: var(--cgpt-submit-text);
+  transition: opacity 150ms var(--cgpt-ease-standard), background-color 150ms var(--cgpt-ease-standard);
+}
+.cgpt-composer-button[data-action="voice"]:hover,
+.cgpt-composer-button[data-action="voice"]:focus-visible,
+.cgpt-send-button:hover,
+.cgpt-send-button:focus-visible {
+  opacity: .7;
+}
+.cgpt-composer-surface[data-has-text] .cgpt-composer-button[data-action="voice"] { display: none; }
+.cgpt-composer-surface[data-has-text] .cgpt-send-button:not(:disabled) { display: inline-flex; }
+
+.cgpt-composer-button {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+  border-radius: 9999px;
+  color: var(--cgpt-text-primary);
+  font-size: var(--cgpt-font-size-label);
+  line-height: var(--cgpt-line-height-label);
+}
+
+.cgpt-composer-tooltip-trigger { position: relative; }
+.cgpt-composer-tooltip {
+  position: fixed;
+  top: 0;
+  bottom: auto;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  overflow: visible;
+  background: transparent;
+  transform: translate(-50%, -4px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms var(--cgpt-ease-standard), transform 150ms var(--cgpt-ease-standard);
+  white-space: nowrap;
+}
+.cgpt-tooltip-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  inline-size: max-content;
+  max-width: min(20rem, calc(100vw - 16px));
+  margin-top: 2px;
+  overflow: hidden;
+  border: 1px solid var(--cgpt-tooltip-border);
+  border-radius: 9999px;
+  background: var(--cgpt-tooltip-surface);
+  padding: 5px 12px;
+  box-shadow: 0 8px 18px rgb(15 23 42 / 20%);
+  color: var(--cgpt-tooltip-text);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.15px;
+  line-height: 18px;
+  text-align: center;
+  white-space: nowrap;
+}
+.cgpt-composer-tooltip[data-open="true"] {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+.cgpt-composer-tooltip[data-side="top"] { transform: translate(-50%, 4px); }
+.cgpt-composer-tooltip[data-side="top"][data-open="true"] { transform: translate(-50%, 0); }
+.cgpt-composer-tooltip > span { display: inline-flex; align-items: center; }
+.cgpt-tooltip-shortcut {
+  gap: 2px;
+  margin-inline-start: 8px;
+  margin-inline-end: -6px;
+  width: max-content;
+  height: 18px;
+  min-height: 18px;
+  box-sizing: border-box;
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 25%);
+  padding: 0 6px;
+  line-height: 18px;
+}
+.cgpt-tooltip-shortcut kbd {
+  margin: 0;
+  padding: 0;
+  color: var(--cgpt-tooltip-text-secondary);
+  font: inherit;
+  line-height: 18px;
+}
+.cgpt-tooltip-shortcut kbd span { min-width: 1em; text-align: center; }
+
+.cgpt-send-button {
+  border-radius: 9999px;
+  background: var(--cgpt-submit-surface);
+  color: var(--cgpt-submit-text);
+}
+
+.cgpt-send-button:disabled {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .cgpt-thread-footer {
+    /* Match the desktop composer-to-viewport bottom clearance. */
+    padding: 0 18px 26px;
+  }
+
+  .cgpt-composer-surface {
+    border-radius: 26px;
+    corner-shape: round;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-template-areas: "leading primary trailing";
+    /* Source puts every narrow-layout inset on composer body (`px-2`,
+       `py-[9px]`, and collapsed `pb-2`), never on the surface. Otherwise
+       the inherited 5px surface block padding makes trailing controls sit
+       farther from the bottom than from the inline edge. */
+    padding: 0;
+  }
+  .cgpt-composer-body {
+    grid-template-columns: 36px minmax(0, 1fr) auto;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: "header header header" "primary primary primary" "leading footer trailing";
+    padding: 9px 8px 8px;
+    row-gap: 2px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .cgpt-composer-surface[data-expanded] .cgpt-composer-body {
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: "header header header" "primary primary primary" "leading footer trailing";
+    align-items: stretch;
+    padding-block: 9px;
+  }
+  .cgpt-composer-pill-icon { width: 20px; height: 20px; flex-basis: 20px; }
+  .cgpt-composer-pill-icon svg { width: 20px; height: 20px; }
+  .cgpt-composer-footer-actions[data-active] {
+    display: contents;
+    grid-column: 2 / 3;
+    justify-self: start;
+  }
+  .cgpt-composer-input {
+    min-width: 0;
+    padding-inline: 7px;
+  }
+
+  .cgpt-composer-body > .cgpt-composer-button:first-child,
+  .cgpt-composer-trailing > .cgpt-composer-button,
+  .cgpt-composer-trailing > .cgpt-send-button {
+    flex: 0 0 36px;
+  }
+  .cgpt-composer-trailing {
+    min-width: 36px;
+    margin-inline-start: auto;
+    gap: 4px;
+    justify-content: flex-end;
+  }
+
+  .cgpt-thinking-button {
+    width: 36px;
+    justify-content: center;
+    padding: 0;
+  }
+  .cgpt-thinking-button { display: none; }
+  .cgpt-composer-footer-actions[data-thinking-enabled] {
+    display: block;
+    grid-area: footer;
+    min-width: 0;
+    max-width: 100%;
+    margin: -4px;
+    overflow-x: auto;
+    padding: 4px;
+    scrollbar-width: none;
+  }
+  .cgpt-composer-footer-actions[data-thinking-enabled]::-webkit-scrollbar { display: none; }
+  .cgpt-composer-pill-contents { display: contents; }
+  .cgpt-composer-pill {
+    grid-area: footer;
+    justify-self: start;
+    align-self: center;
+    width: auto;
+    min-height: 36px;
+    border-radius: 9999px;
+    background: transparent;
+    padding-inline: 10px;
+    color: var(--cgpt-composer-active-text);
+  }
+  .cgpt-composer-pill:hover,
+  .cgpt-composer-pill:focus-visible,
+  .cgpt-composer-pill:active {
+    background: var(--cgpt-composer-active-hover-surface);
+    border-radius: 9999px;
+  }
+  .cgpt-composer-pill-icon { width: 20px; height: 20px; flex-basis: 20px; }
+  .cgpt-composer-pill-icon svg { width: 20px; height: 20px; }
+  .cgpt-composer-pill-remove {
+    display: none;
+    inset-inline-start: 14px;
+  }
+  .cgpt-composer-pill:hover .cgpt-composer-pill-remove,
+  .cgpt-composer-pill:focus-visible .cgpt-composer-pill-remove,
+  .cgpt-composer-pill:active .cgpt-composer-pill-remove {
+    display: inline-flex;
+  }
+  .cgpt-composer-surface[data-collapse-labels] .cgpt-composer-pill-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+  }
+
+  .cgpt-composer-surface[data-manual-expanded] {
+    /* The source keeps the expanded composer viewport-bounded on mobile too;
+       the previous auto size made it collapse to the textarea's content. */
+    block-size: min(48rem, calc(100svh - var(--cgpt-header-height) - 8rem));
+    max-block-size: calc(100svh - var(--cgpt-header-height) - 8rem);
+    min-block-size: 0;
+  }
+
+  .cgpt-composer-surface[data-manual-expanded] .cgpt-composer-input {
+    height: auto !important;
+    max-height: max(30svh, 5rem);
+  }
+
+  .cgpt-thinking-button > span:last-child {
+    display: none;
+  }
+  .cgpt-thinking-button > .cgpt-composer-tooltip { display: block; }
+}
