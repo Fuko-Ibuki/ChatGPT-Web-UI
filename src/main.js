@@ -380,7 +380,7 @@ function updateMessageText(conversation, messageId, value) {
   const mapping = conversation?.mapping;
   if (!mapping || typeof mapping !== "object") return false;
   for (const node of Object.values(mapping)) {
-    if (node?.message?.id !== messageId) continue;
+    if (node?.message?.id !== messageId && node?.id !== messageId) continue;
     const content = node.message.content && typeof node.message.content === "object"
       ? node.message.content
       : (node.message.content = {});
@@ -400,7 +400,7 @@ function removeMessage(conversation, messageId) {
   return true;
 }
 
-function removeAssistantTurn(conversation, record) {
+function removeAssistantTurn(conversation, record, userRecord = null) {
   const mapping = conversation?.mapping;
   if (!mapping || !record?.nodeId) return false;
   const assistantKey = record.nodeId;
@@ -410,7 +410,7 @@ function removeAssistantTurn(conversation, record) {
   // System/tool nodes can sit between visible turns. Follow the branch back to
   // the closest preceding user turn instead of assuming the direct parent is
   // always the user message we render above this reply.
-  let userKey = assistantNode.parent ?? "";
+  let userKey = userRecord?.nodeId ?? assistantNode.parent ?? "";
   const visited = new Set([assistantKey]);
   while (userKey && mapping[userKey] && !visited.has(userKey)) {
     visited.add(userKey);
@@ -418,9 +418,9 @@ function removeAssistantTurn(conversation, record) {
     userKey = mapping[userKey]?.parent ?? "";
   }
   const userNode = userKey ? mapping[userKey] : null;
-  if (userNode?.message?.author?.role !== "user") return false;
+  if (userKey && userNode?.message?.author?.role !== "user") userKey = "";
 
-  const previousKey = userNode?.parent ?? "";
+  const previousKey = userKey ? (userNode?.parent ?? "") : (assistantNode.parent ?? "");
   const childKeys = Object.keys(mapping).filter((key) => mapping[key]?.parent === assistantKey);
   childKeys.forEach((key) => { mapping[key].parent = previousKey; });
   delete mapping[assistantKey];
@@ -1721,12 +1721,37 @@ export function bootstrap() {
       case "delete-turn": {
         const turn = state.menuTurn;
         const entry = activeEntry();
-        const record = entry && turn ? activeMessages(entry.conversation).find((item) => item.id === turn.dataset.turnId) : null;
-        if (entry && record?.role === "assistant" && window.confirm("确定删除这条回复及上一条用户消息吗？") && removeAssistantTurn(entry.conversation, record)) {
+        const records = entry ? activeMessages(entry.conversation) : [];
+        const recordIndex = turn ? records.findIndex((item) => item.id === turn.dataset.turnId) : -1;
+        const record = recordIndex >= 0 ? records[recordIndex] : null;
+        const userRecord = recordIndex > 0
+          ? [...records].slice(0, recordIndex).reverse().find((item) => item.role === "user")
+          : null;
+        const turnIndex = turn ? [...ui.thread.querySelectorAll(".cgpt-turn")].indexOf(turn) : -1;
+        if (entry && record?.role === "assistant" && window.confirm("确定删除这条回复及上一条用户消息吗？") && removeAssistantTurn(entry.conversation, record, userRecord)) {
           renderConversation(ui.thread, entry.conversation, state.archive?.resolver);
           renderThreadToc();
-          updateScrollToBottom();
-          updateThreadToc();
+          requestAnimationFrame(() => {
+            const turns = [...ui.thread.querySelectorAll(".cgpt-turn")];
+            const nextAssistant = turns.slice(Math.max(0, turnIndex)).find((item) => item.dataset.role === "assistant");
+            const viewportBounds = ui.scrollRoot?.getBoundingClientRect();
+            const actionBounds = nextAssistant?.querySelector(".cgpt-turn-actions")?.getBoundingClientRect();
+            if (viewportBounds && actionBounds && ui.scrollRoot) {
+              const previousBehavior = ui.scrollRoot.style.scrollBehavior;
+              ui.scrollRoot.style.scrollBehavior = "auto";
+              const actionCenter = actionBounds.top + actionBounds.height / 2;
+              const viewportCenter = viewportBounds.top + viewportBounds.height / 2;
+              ui.scrollRoot.scrollTop += actionCenter - viewportCenter;
+              ui.scrollRoot.style.scrollBehavior = previousBehavior;
+            } else if (ui.scrollRoot) {
+              const previousBehavior = ui.scrollRoot.style.scrollBehavior;
+              ui.scrollRoot.style.scrollBehavior = "auto";
+              ui.scrollRoot.scrollTop = ui.scrollRoot.scrollHeight;
+              ui.scrollRoot.style.scrollBehavior = previousBehavior;
+            }
+            updateScrollToBottom();
+            updateThreadToc();
+          });
         }
         closeMenu();
         break;
@@ -1762,10 +1787,23 @@ export function bootstrap() {
         const wrap = target.closest(".cgpt-message-content")?.querySelector(".cgpt-user-message-root");
         if (!wrap?.dataset.userMessageCollapsible) break;
         const collapsed = wrap.dataset.userMessageCollapsed === "true";
+        const isCollapsing = !collapsed;
+        const bubble = target.closest(".cgpt-message-content");
         wrap.dataset.userMessageCollapsed = String(!collapsed);
         target.querySelector(".cgpt-user-message-toggle-more")?.toggleAttribute("hidden", collapsed);
         target.querySelector(".cgpt-user-message-toggle-less")?.toggleAttribute("hidden", !collapsed);
         target.setAttribute("aria-expanded", String(collapsed));
+        if (isCollapsing && bubble) {
+          requestAnimationFrame(() => {
+            const scrollBounds = ui.scrollRoot.getBoundingClientRect();
+            const bubbleBounds = bubble.getBoundingClientRect();
+            const topInset = 16;
+            const previousBehavior = ui.scrollRoot.style.scrollBehavior;
+            ui.scrollRoot.style.scrollBehavior = "auto";
+            ui.scrollRoot.scrollTop += bubbleBounds.top - (scrollBounds.top + topInset);
+            ui.scrollRoot.style.scrollBehavior = previousBehavior;
+          });
+        }
         break;
       }
       case "copy-history-title": {
@@ -1815,7 +1853,7 @@ export function bootstrap() {
         renderUserEdit(turn, current, {
           onCancel: restoreAfterEdit,
           onSave: (next) => {
-            updateMessageText(entry.conversation, record.message?.id ?? record.id, next);
+            updateMessageText(entry.conversation, record.id ?? record.message?.id ?? record.nodeId, next);
             restoreAfterEdit();
           }
         });

@@ -292,6 +292,7 @@
 .cgpt-history-submenu button > span svg { display: block !important; width: 20px !important; height: 20px !important; flex: 0 0 20px; align-self: center; margin: 0; transform: none; }
 .cgpt-menu-history-actions button > svg { display: block !important; flex: 0 0 auto; align-self: center; width: 16px; height: 16px; margin: 0; }
 .cgpt-menu-history-actions-inner { display: flex; align-items: center; gap: 8px; }
+.cgpt-menu[data-rail-menu] .cgpt-menu-history-actions-inner { gap: 0; }
 .cgpt-menu-history-actions-inner button > .cgpt-menu-action-icon { display: flex !important; width: 20px !important; height: 20px !important; align-items: center; justify-content: center; flex: 0 0 20px; }
 .cgpt-menu-history-actions-inner button:first-child > .cgpt-menu-action-icon,
 .cgpt-menu-history-actions-inner button:first-child > .cgpt-menu-action-icon svg { width: 16px !important; height: 16px !important; flex-basis: 16px; }

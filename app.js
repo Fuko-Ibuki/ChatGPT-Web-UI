@@ -633,6 +633,8 @@ const ICONS = {
   search: { viewBox: "0 0 20 20", body: '<path fill-rule="evenodd" clip-rule="evenodd" d="M9.161 2.379a6.707 6.707 0 0 1 5.157 10.993l3.242 3.243a.665.665 0 0 1-.94.94l-3.252-3.25A6.707 6.707 0 1 1 9.161 2.379m0 1.33a5.377 5.377 0 1 0 0 10.754 5.377 5.377 0 0 0 0-10.754"></path>' },
   pin: { viewBox: "0 0 20 20", body: '<path d="M11.835 12.5c0-.793.444-1.487 1.026-1.902l3.551-2.536.09-.073a1.01 1.01 0 0 0 .114-1.377l-.077-.086-3.065-3.065a1.01 1.01 0 0 0-1.463.037l-.073.09-2.536 3.55C8.987 7.72 8.293 8.166 7.5 8.166H5.417c-.434 0-.843.301-1.05.781-.205.476-.143.965.172 1.28l5.234 5.235.126.106c.312.22.739.245 1.155.066.48-.207.78-.616.78-1.05zm1.33 2.083c0 1.09-.743 1.909-1.585 2.272-.793.341-1.817.34-2.595-.314l-.152-.14-2.147-2.147L2.97 17.97a.666.666 0 1 1-.942-.942l3.716-3.716L3.6 11.168c-.792-.792-.818-1.901-.454-2.747.363-.842 1.182-1.585 2.272-1.585H7.5c.288 0 .607-.172.82-.47l2.536-3.55.081-.108a2.34 2.34 0 0 1 3.477-.186l3.065 3.065.093.098a2.34 2.34 0 0 1-.28 3.379l-.107.08-3.55 2.537c-.299.213-.47.532-.47.82z"></path>' },
   unpin: { viewBox: "0 0 20 20", body: '<path d="M11.835 12.5c0-.793.444-1.487 1.026-1.902l3.551-2.536.09-.073a1.01 1.01 0 0 0 .114-1.377l-.077-.086-3.065-3.065a1.01 1.01 0 0 0-1.463.037l-.073.09-2.536 3.55C8.987 7.72 8.293 8.166 7.5 8.166H5.417c-.434 0-.843.301-1.05.781-.205.476-.143.965.172 1.28l5.234 5.235.126.106c.312.22.739.245 1.155.066.48-.207 1.155-.616.78-1.05z"></path><path d="m3 3 14 14" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5"></path>' },
+  "pin-sm": { viewBox: "0 0 16 16", body: '<path fill-rule="evenodd" d="M8.699 2.274c.613-.913 1.853-1.046 2.674-.407l.158.139.003.002 2.443 2.415.002.002c.427.427.558.997.5 1.506-.059.501-.308 1-.72 1.318l-.006.006-.008.006-2.415 1.724a.8.8 0 0 0-.322.497l-.53 2.59-.003.017-.004.016c-.193.714-.705 1.298-1.365 1.525-.683.235-1.447.061-2.049-.585l-1.693-1.668-2.993 2.994a.525.525 0 0 1-.742-.742l2.987-2.988L3.02 9.069c-.588-.57-.787-1.348-.592-2.042.197-.695.774-1.25 1.607-1.413l2.48-.572a.8.8 0 0 0 .482-.325zm2.026.42c-.37-.289-.908-.208-1.158.17l-.007.01-1.702 2.443a1.86 1.86 0 0 1-1.106.749l-2.48.572-.012.002-.01.003c-.47.087-.726.37-.81.67-.077.268-.03.595.202.883l.112.122.003.003 4.038 3.976.01.01.01.01c.343.235.685.411.95.32.293-.101.574-.385.689-.796l.525-2.57c.094-.46.359-.867.74-1.14l2.403-1.717a.92.92 0 0 0 .313-.604c.03-.253-.039-.483-.196-.64l-2.442-2.413z"></path>' },
+  "unpin-sm": { viewBox: "0 0 16 16", body: '<path fill-rule="evenodd" d="M2.301 2.302a.525.525 0 0 1 .743 0l10.655 10.654a.526.526 0 0 1-.742.743l-2.34-2.339-.138.71-.008.034c-.193.715-.705 1.299-1.365 1.526-.683.235-1.447.06-2.049-.585l-1.693-1.668-2.993 2.994a.525.525 0 0 1-.742-.742l2.987-2.988L3.02 9.069c-.588-.571-.787-1.348-.592-2.042s.77-1.245 1.6-1.41l.678-.169L2.3 3.044a.525.525 0 0 1 0-.742M4.28 6.636l-.015.004-.014.003c-.47.087-.726.37-.81.67-.077.268-.029.595.202.883l.112.121.003.004 4.038 3.976.01.01.01.01c.343.377.685.412.95.32.292-.1.573-.384.688-.793l.272-1.376-4.151-4.152z" clip-rule="evenodd"></path><path d="M8.705 2.265c.615-.905 1.848-1.035 2.667-.398l.159.139.002.002 2.443 2.415.003.002c.83.83.64 2.175-.223 2.827l-.01.008-1.449 1.042a.526.526 0 0 1-.613-.853l1.439-1.035c.4-.301.453-.904.116-1.244l-2.444-2.415c-.37-.359-.962-.294-1.228.108l-.014.02-1.128 1.55a.525.525 0 0 1-.85-.619z"></path>' },
   menu: { viewBox: "0 0 20 20", body: '<path d="M11.666 12.669a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33zM16.666 6.002a.665.665 0 0 1 0 1.33H3.333a.665.665 0 0 1 0-1.33z"></path>' },
   sidebar: { viewBox: "0 0 20 20", body: '<path fill-rule="evenodd" clip-rule="evenodd" d="M14.5 2.877a3.665 3.665 0 0 1 3.665 3.665v6.917a3.665 3.665 0 0 1-3.665 3.665h-9a3.665 3.665 0 0 1-3.665-3.665V6.542A3.665 3.665 0 0 1 5.5 2.877zM8.165 15.794H14.5a2.335 2.335 0 0 0 2.335-2.335V6.542A2.335 2.335 0 0 0 14.5 4.207H8.165zM5.5 4.207a2.335 2.335 0 0 0-2.335 2.335v6.917A2.335 2.335 0 0 0 5.5 15.794h1.335V4.207z"></path>' },
   share: { viewBox: "0 0 20 20", body: '<path d="M16.666 10.168c.367 0 .665.298.665.665V14.2a3.13 3.13 0 0 1-3.131 3.132H5.8A3.13 3.13 0 0 1 2.668 14.2v-3.366a.665.665 0 1 1 1.33 0V14.2c0 .995.807 1.802 1.802 1.802h8.4c.995 0 1.801-.807 1.801-1.802v-3.366c0-.367.298-.665.665-.665"></path><path d="M9.318 3.083a1.08 1.08 0 0 1 1.365 0l.082.074 3.247 3.247a.665.665 0 0 1-.94.94L10.665 4.94v6.936a.665.665 0 0 1-1.33 0V4.937L6.93 7.345a.666.666 0 0 1-.941-.94l3.247-3.248z"></path>' },
@@ -648,10 +650,6 @@ const ICONS = {
 };
 
 function icon(name, { title = "" } = {}) {
-  if (["pin-sm", "unpin-sm"].includes(name)) {
-    const size = name.endsWith("-sm") ? 16 : 20;
-    return `<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}" viewBox="0 0 20 20" data-icon-shape="non-circular" focusable="false" aria-hidden="true"><use href="./reference/sprites-shell-097001e7.svg#${name}" fill="currentColor"></use></svg>`;
-  }
   const definition = ICONS[name] ?? ICONS.dots;
   const label = title ? `<title>${title}</title>` : "";
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${definition.viewBox}" fill="currentColor" aria-hidden="true" focusable="false">${label}${definition.body}</svg>`;
@@ -1675,7 +1673,7 @@ function updateMessageText(conversation, messageId, value) {
   const mapping = conversation?.mapping;
   if (!mapping || typeof mapping !== "object") return false;
   for (const node of Object.values(mapping)) {
-    if (node?.message?.id !== messageId) continue;
+    if (node?.message?.id !== messageId && node?.id !== messageId) continue;
     const content = node.message.content && typeof node.message.content === "object"
       ? node.message.content
       : (node.message.content = {});
@@ -1695,7 +1693,7 @@ function removeMessage(conversation, messageId) {
   return true;
 }
 
-function removeAssistantTurn(conversation, record) {
+function removeAssistantTurn(conversation, record, userRecord = null) {
   const mapping = conversation?.mapping;
   if (!mapping || !record?.nodeId) return false;
   const assistantKey = record.nodeId;
@@ -1705,7 +1703,7 @@ function removeAssistantTurn(conversation, record) {
   // System/tool nodes can sit between visible turns. Follow the branch back to
   // the closest preceding user turn instead of assuming the direct parent is
   // always the user message we render above this reply.
-  let userKey = assistantNode.parent ?? "";
+  let userKey = userRecord?.nodeId ?? assistantNode.parent ?? "";
   const visited = new Set([assistantKey]);
   while (userKey && mapping[userKey] && !visited.has(userKey)) {
     visited.add(userKey);
@@ -1713,9 +1711,9 @@ function removeAssistantTurn(conversation, record) {
     userKey = mapping[userKey]?.parent ?? "";
   }
   const userNode = userKey ? mapping[userKey] : null;
-  if (userNode?.message?.author?.role !== "user") return false;
+  if (userKey && userNode?.message?.author?.role !== "user") userKey = "";
 
-  const previousKey = userNode?.parent ?? "";
+  const previousKey = userNode?.parent ?? assistantNode.parent ?? "";
   const childKeys = Object.keys(mapping).filter((key) => mapping[key]?.parent === assistantKey);
   childKeys.forEach((key) => { mapping[key].parent = previousKey; });
   delete mapping[assistantKey];
@@ -3016,12 +3014,37 @@ function bootstrap() {
       case "delete-turn": {
         const turn = state.menuTurn;
         const entry = activeEntry();
-        const record = entry && turn ? activeMessages(entry.conversation).find((item) => item.id === turn.dataset.turnId) : null;
-        if (entry && record?.role === "assistant" && window.confirm("确定删除这条回复及上一条用户消息吗？") && removeAssistantTurn(entry.conversation, record)) {
+        const records = entry ? activeMessages(entry.conversation) : [];
+        const recordIndex = turn ? records.findIndex((item) => item.id === turn.dataset.turnId) : -1;
+        const record = recordIndex >= 0 ? records[recordIndex] : null;
+        const userRecord = recordIndex > 0
+          ? [...records].slice(0, recordIndex).reverse().find((item) => item.role === "user")
+          : null;
+        const turnIndex = turn ? [...ui.thread.querySelectorAll(".cgpt-turn")].indexOf(turn) : -1;
+        if (entry && record?.role === "assistant" && window.confirm("确定删除这条回复及上一条用户消息吗？") && removeAssistantTurn(entry.conversation, record, userRecord)) {
           renderConversation(ui.thread, entry.conversation, state.archive?.resolver);
           renderThreadToc();
-          updateScrollToBottom();
-          updateThreadToc();
+          requestAnimationFrame(() => {
+            const turns = [...ui.thread.querySelectorAll(".cgpt-turn")];
+            const nextAssistant = turns.slice(Math.max(0, turnIndex)).find((item) => item.dataset.role === "assistant");
+            const viewportBounds = ui.scrollRoot?.getBoundingClientRect();
+            const actionBounds = nextAssistant?.querySelector(".cgpt-turn-actions")?.getBoundingClientRect();
+            if (viewportBounds && actionBounds && ui.scrollRoot) {
+              const previousBehavior = ui.scrollRoot.style.scrollBehavior;
+              ui.scrollRoot.style.scrollBehavior = "auto";
+              const actionCenter = actionBounds.top + actionBounds.height / 2;
+              const viewportCenter = viewportBounds.top + viewportBounds.height / 2;
+              ui.scrollRoot.scrollTop += actionCenter - viewportCenter;
+              ui.scrollRoot.style.scrollBehavior = previousBehavior;
+            } else if (ui.scrollRoot) {
+              const previousBehavior = ui.scrollRoot.style.scrollBehavior;
+              ui.scrollRoot.style.scrollBehavior = "auto";
+              ui.scrollRoot.scrollTop = ui.scrollRoot.scrollHeight;
+              ui.scrollRoot.style.scrollBehavior = previousBehavior;
+            }
+            updateScrollToBottom();
+            updateThreadToc();
+          });
         }
         closeMenu();
         break;
@@ -3057,10 +3080,23 @@ function bootstrap() {
         const wrap = target.closest(".cgpt-message-content")?.querySelector(".cgpt-user-message-root");
         if (!wrap?.dataset.userMessageCollapsible) break;
         const collapsed = wrap.dataset.userMessageCollapsed === "true";
+        const isCollapsing = !collapsed;
+        const bubble = target.closest(".cgpt-message-content");
         wrap.dataset.userMessageCollapsed = String(!collapsed);
         target.querySelector(".cgpt-user-message-toggle-more")?.toggleAttribute("hidden", collapsed);
         target.querySelector(".cgpt-user-message-toggle-less")?.toggleAttribute("hidden", !collapsed);
         target.setAttribute("aria-expanded", String(collapsed));
+        if (isCollapsing && bubble) {
+          requestAnimationFrame(() => {
+            const scrollBounds = ui.scrollRoot.getBoundingClientRect();
+            const bubbleBounds = bubble.getBoundingClientRect();
+            const topInset = 16;
+            const previousBehavior = ui.scrollRoot.style.scrollBehavior;
+            ui.scrollRoot.style.scrollBehavior = "auto";
+            ui.scrollRoot.scrollTop += bubbleBounds.top - (scrollBounds.top + topInset);
+            ui.scrollRoot.style.scrollBehavior = previousBehavior;
+          });
+        }
         break;
       }
       case "copy-history-title": {
@@ -3110,7 +3146,7 @@ function bootstrap() {
         renderUserEdit(turn, current, {
           onCancel: restoreAfterEdit,
           onSave: (next) => {
-            updateMessageText(entry.conversation, record.message?.id ?? record.id, next);
+            updateMessageText(entry.conversation, record.id ?? record.message?.id ?? record.nodeId, next);
             restoreAfterEdit();
           }
         });
